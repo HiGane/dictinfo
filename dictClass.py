@@ -58,11 +58,14 @@ class dictinfo() :
     for k in data :
       self.key.append(k)
       stack = copy.deepcopy(self.key)
+      if not stack in self.keylist :
+        self.keylist.append(stack)
       if isinstance(data[k] , dict) :
         self.dictparsermain(data[k])
       else :
         stack = copy.deepcopy(self.key)
-        self.keylist.append(stack)
+        if not stack in self.keylist :
+          self.keylist.append(stack)
         while True :
           if self.depth == [] :
             break
