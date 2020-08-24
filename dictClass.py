@@ -29,7 +29,7 @@ class dictinfo() :
 
   def haskey(self , klist) :
     ''' confirm key is existed '''
-    if  klist in self.keylist :
+    if  klist in self.keylist or klist == [] :
       return True 
     else :
       return False
@@ -37,8 +37,9 @@ class dictinfo() :
   def getvalue(self , klist) :
     '''get value '''
     if self.haskey(klist) :
-      klist.reverse()
-      self.loopgetv(self.mdict , klist)
+      klistin = copy.deepcopy(klist)
+      klistin.reverse()
+      self.loopgetv(self.mdict , klistin)
       return self.outv
     else  :
       return None
@@ -56,6 +57,7 @@ class dictinfo() :
     self.depth.append(len(data.keys()))
     for k in data :
       self.key.append(k)
+      stack = copy.deepcopy(self.key)
       if isinstance(data[k] , dict) :
         self.dictparsermain(data[k])
       else :
